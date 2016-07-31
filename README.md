@@ -90,7 +90,8 @@ Code for the POM File:
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.10</junit.version>
-
+		<serenity.version>1.0.47</serenity.version>
+		<serenity.maven.version>1.0.47</serenity.maven.version>
 	</properties>
 
 	<dependencies>
@@ -104,6 +105,17 @@ Code for the POM File:
 			<artifactId>selenium-java</artifactId>
 			<version>2.52.0</version>
 		</dependency>
+		<dependency>
+			<groupId>net.serenity-bdd</groupId>
+			<artifactId>core</artifactId>
+			<version>${serenity.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.serenity-bdd</groupId>
+			<artifactId>serenity-junit</artifactId>
+			<version>${serenity.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -137,10 +149,31 @@ Code for the POM File:
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
 				<configuration>
-				<fork>true</fork>
-				<executable>C:\Program Files\Java\jdk1.8.0_66\bin\javac.exe</executable>
+					<fork>true</fork>
+					<executable>C:\Program Files\Java\jdk1.8.0_66\bin\javac.exe</executable>
 					<!-- put your configurations here -->
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>net.serenity-bdd.maven.plugins</groupId>
+				<artifactId>serenity-maven-plugin</artifactId>
+				<version>${serenity.maven.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>net.serenity-bdd</groupId>
+						<artifactId>core</artifactId>
+						<version>${serenity.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>serenity-reports</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
